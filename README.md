@@ -10,6 +10,11 @@
 ```bash
 $ npm install
 ```
+## 운영 포인트
+```swagger``` 쪽으로 통하는 path 는 전부 막아주세요
+
+## 설정 관련
+// TODO
 
 ## DB 접속
 // TODO
