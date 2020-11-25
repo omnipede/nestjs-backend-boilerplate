@@ -19,7 +19,6 @@ async function bootstrap (): Promise<any> {
   
   // 설정 값 세팅하기
   application.useLogger(logLevel);
-  
   await application.listen(port);
   logger.log(`[*] Http server application is listening on port ${port}`);
 }
