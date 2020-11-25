@@ -26,7 +26,13 @@ export class UserController {
       id: user.id,
       name: user.name,
       phone_number: user.phoneNumber,
-      borrow_list: user.borrowList,
+      borrow_list: user.borrowList.map((borrow) => {
+        const { book } = borrow;
+        return {
+          id: book.id,
+          name: book.name,
+        }
+      }),
     };
 
     return responseBodyDTO;

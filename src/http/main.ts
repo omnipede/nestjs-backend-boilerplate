@@ -15,7 +15,7 @@ async function bootstrap (): Promise<any> {
   // 설정 값 받아오기
   const configService: ConfigService = application.get<ConfigService>(ConfigService);
   const port: number = configService.get( "http.port", 3000 ); // 포트 설정
-  const logLevel: LogLevel[] = configService.get( "logger", ['log'] ); // 로그 레벨 설정
+  const logLevel: LogLevel[] = configService.get( "logger", [] ); // 로그 레벨 설정
   
   // 설정 값 세팅하기
   application.useLogger(logLevel);
