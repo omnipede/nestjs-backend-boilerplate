@@ -11,7 +11,10 @@ export class BorrowService {
   ) {}
 
   public async borrow(user: User, book: Book): Promise<Borrow> {
-    const borrowEntity = new Borrow(user, book);
+    const borrowEntity = new Borrow.Builder()
+      .setUser(user)
+      .setBook(book)
+      .build();
     return this.borrowRepository.save(borrowEntity);
   }
 }

@@ -13,7 +13,9 @@ describe('BookService', () => {
   beforeEach(async () => {
     bookRepository = new Repository<Book>();
     bookRepository.find = jest.fn().mockImplementation(() => {
-      const book = new Book('홍길동');
+      const book = new Book.Builder()
+        .setName('홍길동')
+        .build();
       return [book];
     });
     bookService = new BookService(bookRepository);

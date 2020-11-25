@@ -1,7 +1,6 @@
 import { MiddlewareConsumer, Module, NestModule } from "@nestjs/common";
 import { APP_FILTER, APP_INTERCEPTOR } from "@nestjs/core";
-import { TypeOrmModule } from "@nestjs/typeorm";
-import { ConfigModule, ConfigService } from "@nestjs/config";
+import { ConfigModule } from "@nestjs/config";
 import { LibraryModule } from "./domain/library/LibraryModule";
 import { BusinessExceptionFilter } from "./global/error/BusinessExceptionFilter";
 import { GlobalErrorFilter } from "./global/error/GlobalErrorFilter";
@@ -10,6 +9,7 @@ import { ErrorLoggingInterceptor } from "./global/interceptor/ErrorLoggingInterc
 import { ResponseBodyInterceptor } from "./global/interceptor/ResponseBodyInterceptor";
 import { LoggerMiddleware } from "./global/middleware/LoggerMiddleware";
 import config from "../config";
+import { DatabaseModule } from "../db/DatabaseModule";
 
 @Module({
   imports: [
@@ -18,24 +18,8 @@ import config from "../config";
     ConfigModule.forRoot({
       load: [config],
     }),
-    // DB 접속정보 설정
-    TypeOrmModule.forRootAsync({
-      imports: [ConfigModule],
-      inject: [ConfigService],
-      useFactory: async (configService: ConfigService) => ({
-        type: 'mysql',
-        host: configService.get('db.host', 'localhost'),
-        port: configService.get('db.port', 3306),
-        username: configService.get('db.username', 'root'),
-        password: configService.get('db.password', 'password'),
-        database: configService.get('db.database', 'database_development'),
-        synchronize: configService.get('db.synchronize', false),
-        timezone: configService.get('db.timezone', 'Z'),
-        dropSchema: configService.get('db.dropSchema', false),
-        autoLoadEntities: true,
-        keepConnectionAlive: true,
-      }),
-    }),
+    // DB 커넥션
+    DatabaseModule,
   ],
   // Filter, interceptor 적용
   providers: [

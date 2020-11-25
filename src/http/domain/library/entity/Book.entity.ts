@@ -1,4 +1,5 @@
 import { Column, CreateDateColumn, Entity, OneToMany, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
+import expect from 'expect';
 import { Borrow } from "./Borrow.entity";
 
 @Entity({ name: 't_book' })
@@ -18,7 +19,20 @@ export class Book {
   @OneToMany(() => Borrow, borrow => borrow.book)
   borrowList: Borrow[];
 
-  constructor(name) {
-    this.name = name;
+  // Builder
+  static Builder = class {
+    name: string;
+    setName(name: string) {
+      this.name = name;
+      return this;
+    }
+
+    build(): Book {
+      const { name } = this;
+      expect(name).not.toBeFalsy();
+      const book = new Book();
+      book.name = name;
+      return book;
+    }
   }
 }

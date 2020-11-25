@@ -16,4 +16,12 @@ export class UserRepository extends Repository<User> {
       .getOne();
     return user;
   }
+
+  /**
+   * 또는 아래와 같이 구현 가능 ...
+   */
+  async findUserWithBorrowList(id: number): Promise<User> {
+    const user: User = await this.findOne(id, { relations: ['borrowList', 'borrowList.book']});
+    return user;
+  }
 }

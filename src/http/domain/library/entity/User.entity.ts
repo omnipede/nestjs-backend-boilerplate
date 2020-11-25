@@ -1,4 +1,5 @@
 import { Column, CreateDateColumn, Entity, OneToMany, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
+import expect from 'expect';
 import { Borrow } from "./Borrow.entity";
 
 @Entity({ name: 't_user' })
@@ -20,5 +21,34 @@ export class User {
   updatedAt: Date;
 
   @OneToMany(() => Borrow, borrow => borrow.user)
-  borrowList: Borrow[]
+  borrowList: Borrow[];
+
+  /**
+   * Typeorm entitty 에서 constructor 를 구현하기에는
+   * 여러가지 제약 사항이 존재하여, 불가피하게 builder 패턴으로 구현함
+   */
+  static Builder = class {
+    phoneNumber: string;
+    name: string;
+    
+    public setPhoneNumber(phoneNumber: string) {
+      this.phoneNumber = phoneNumber;
+      return this;
+    }
+    
+    public setName(name: string) {
+      this.name = name;
+      return this;
+    }
+
+    public build(): User {
+      const { name, phoneNumber } = this;
+      expect(name).not.toBeFalsy();
+      expect(phoneNumber).not.toBeFalsy();
+      const user = new User();
+      user.name = name;
+      user.phoneNumber = phoneNumber;
+      return user;
+    }
+  }
 }
