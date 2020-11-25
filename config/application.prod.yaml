@@ -1,0 +1,18 @@
+http:
+  port: 3000
+
+logger: # 로그 레벨 설정, 필요 없는 레벨 지우거나 주석처리하기
+  - log
+  - debug
+  - error
+  - warn
+  - verbose
+
+db: # Database connection 설정
+  host: 'localhost'
+  port: 3306
+  username: 'root'
+  password: 'password'
+  database: 'database_production'
+  synchronize: false # 운영에서는 가급적 synchronize: false 로 해야 함.
+  timezone: 'Z'

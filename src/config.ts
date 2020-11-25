@@ -25,6 +25,7 @@ const logger = new Logger('Configuration');
  * 설정 파일을 읽어서 메모리에 로드하는 스크립트
  */
 export default () => {
+  logger.log(`Environment: ${env}`);
   logger.log(`Loading configuration file: ${YAML_CONFIG_FILE}`);
   const loaded = yaml.load(
     fs.readFileSync(join(__dirname, '..', 'config', YAML_CONFIG_FILE), 'utf8'),

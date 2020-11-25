@@ -13,7 +13,9 @@ db: # Database connection 설정
   port: 3306
   username: 'root'
   password: 'password'
+  # 절대 dev 또는 prod 와 같은 database schema name 이어서는 안된다.
+  # 동일할 시, dev 또는 prod 의 table 이 전부 날아갈 수 있음
   database: 'test_schema'
   synchronize: true
-  timezone: 'Z'
   dropSchema: true
+  timezone: 'Z'
