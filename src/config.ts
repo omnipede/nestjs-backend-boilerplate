@@ -19,6 +19,8 @@ let YAML_CONFIG_FILE = process.env.CONFIG_FILE || 'application';
 
 if (typeof env === 'string')
   YAML_CONFIG_FILE += '.' + env + '.yaml';
+else
+  YAML_CONFIG_FILE += '.yaml';
 
 const logger = new Logger('Configuration');
 

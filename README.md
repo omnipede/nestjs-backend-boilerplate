@@ -10,14 +10,29 @@
 ```bash
 $ npm install
 ```
-## 운영 포인트
-```swagger``` 쪽으로 통하는 path 는 전부 막아주세요
 
 ## 설정 관련
-// TODO
+* 설정은 ```./config``` 폴더에 존재
+* 사용할 설정 파일 이름은 ```.env``` 파일의 ```CONFIG_FILE``` 변수로 수정 가능
+* ```NODE_ENV``` 환경변수 값에 따라 불러오는 설정 파일의 suffix 가 다름
+
+예를 들어, ```NODE_ENV``` 가 ```dev``` 고, 
+```.env``` 파일의 ```CONFIG_FILE``` 변수가 ```application``` 이면
+```application.dev.yaml``` 파일을 설정 파일로 사용함
 
 ## DB 접속
-// TODO
+```yaml
+db: # Database connection 설정
+  host: 'localhost'
+  port: 3306
+  username: 'root'
+  password: 'password'
+  database: 'database_development'
+  synchronize: false
+  timezone: 'Z'
+```
+
+```./config``` 폴더 내부의 yaml 파일의 db property 에 db 접속 정보 존재
 
 ## 실행
 
@@ -25,7 +40,7 @@ $ npm install
 # development
 $ npm run start
 
-# watch mode
+# development (reload)
 $ npm run start:dev
 
 # production mode
